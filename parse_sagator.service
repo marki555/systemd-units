@@ -1,0 +1,12 @@
+[Unit]
+Description=Parser for Sagator logs
+After=sagator.service
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/perl /usr/local/sbin/parse_sagator.pl
+StandardOutput=journal
+Nice=5
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,12 @@
+[Unit]
+Description=Yaa (Yet Another Autoresponder)
+Before=mysql.service
+
+# must have $daemon_background=0 in yaa.conf, yaa is chrooted and using user vscan, in chroot use only ip for mysql host
+[Service]
+Type=simple
+ExecStart=/usr/local/yaa/bin/yaa.pl
+Nice=1
+
+[Install]
+WantedBy=multi-user.target

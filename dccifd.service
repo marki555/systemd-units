@@ -1,0 +1,21 @@
+[Unit]
+Description=DCC (Distributed Checksum Clearinghouses) interface daemon
+Before=spamassassin.service
+
+# https://blog.hqcodeshop.fi/archives/93-Handling-varrun-with-systemd.html
+
+[Service]
+Type=forking
+PermissionsStartOnly=true
+ExecStartPre=/bin/mkdir -p /run/dcc
+ExecStartPre=/bin/chown -R vscan:vscan /var/run/dcc
+ExecStart=/var/dcc/libexec/dccifd
+User=vscan
+Group=vscan
+Nice=1
+
+#DCC writes pid file with "-" at the beginning which confuses systemd
+#PIDFile=/run/dcc/dccifd.pid
+
+[Install]
+WantedBy=multi-user.target

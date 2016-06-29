@@ -1,0 +1,18 @@
+[Unit]
+Description=Postfix PolicyD 2.0 Cluebringer
+Before=postfix.service mysql.service
+
+# https://blog.hqcodeshop.fi/archives/93-Handling-varrun-with-systemd.html
+
+[Service]
+Type=forking
+PermissionsStartOnly=true
+ExecStartPre=/bin/mkdir -p /run/cluebringer
+ExecStartPre=/bin/chown -R vscan:www-data /run/cluebringer
+ExecStartPre=/bin/chmod 750 /run/cluebringer
+ExecStart=/usr/local/sbin/cbpolicyd --config=/etc/cluebringer/cluebringer.conf
+#User=vscan
+PIDFile=/run/cluebringer/cbpolicyd.pid
+
+[Install]
+WantedBy=multi-user.target

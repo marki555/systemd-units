@@ -1,0 +1,12 @@
+[Unit]
+Description=Parser for SASL logs
+After=mysql.service
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/perl /usr/local/sbin/parse_sasl.pl
+StandardOutput=journal
+Nice=5
+
+[Install]
+WantedBy=multi-user.target
