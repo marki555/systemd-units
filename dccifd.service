@@ -2,13 +2,11 @@
 Description=DCC (Distributed Checksum Clearinghouses) interface daemon
 Before=spamassassin.service
 
-# https://blog.hqcodeshop.fi/archives/93-Handling-varrun-with-systemd.html
 
 [Service]
 Type=forking
 PermissionsStartOnly=true
-ExecStartPre=/bin/mkdir -p /run/dcc
-ExecStartPre=/bin/chown -R vscan:vscan /var/run/dcc
+RuntimeDirectory=dcc
 ExecStart=/var/dcc/libexec/dccifd
 User=vscan
 Group=vscan
